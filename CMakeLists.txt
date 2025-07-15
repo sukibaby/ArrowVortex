@@ -11,10 +11,10 @@ set(CMAKE_CONFIGURATION_TYPES Debug Release)
 
 include_directories("${PROJECT_SOURCE_DIR}/src")
 
-find_package(Freetype REQUIRED)
-find_package(MAD REQUIRED)
-find_package(Ogg CONFIG REQUIRED)
-find_package(Vorbis REQUIRED)
+## libmad, vorbis, ogg, freetype are provided via submodules
+## be sure to run git submodule update --init --recursive before building
+## idk what to do about openGL yet, using system package for now
+## vorbis-tools are not used yet, so no need to build them, but they should be replacing oggenc2
 find_package(OpenGL REQUIRED)
 
 add_subdirectory(src/Core)

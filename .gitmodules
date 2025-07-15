@@ -1,0 +1,20 @@
+[submodule "submodules/libmad"]
+	path = submodules/libmad
+	url = https://codeberg.org/tenacityteam/libmad.git
+	shallow = true
+[submodule "submodules/freetype"]
+	path = submodules/freetype
+	url = https://gitlab.freedesktop.org/freetype/freetype.git
+	shallow = true
+[submodule "submodules/ogg"]
+	path = submodules/ogg
+	url = https://github.com/xiph/ogg.git
+	shallow = true
+[submodule "submodules/vorbis-tools"]
+	path = submodules/vorbis-tools
+	url = https://github.com/xiph/vorbis-tools.git
+	shallow = true
+[submodule "submodules/vorbis"]
+	path = submodules/vorbis
+	url = https://github.com/xiph/vorbis.git
+	shallow = true
