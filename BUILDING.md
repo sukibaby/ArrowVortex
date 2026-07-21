@@ -31,7 +31,7 @@ Prerequsites:
 * Needed packages from package manager
 * CMake
 * vcpkg (per https://lindevs.com/install-vcpkg-on-ubuntu). Note you will need to give your user read/write access to the install folder with sudo.
-* `VCPKG_ROOT` environment variable pointing at vcpkg installation folder (env VCPKG_ROOT={path}) OR install it to /opt/vcpkg.
+* `VCPKG_ROOT` environment variable pointing at vcpkg installation folder, or install vcpkg to `/opt/vcpkg`.
 
 ### Build Packages
 For Ubuntu/Debian install:
@@ -58,15 +58,23 @@ libdrm-devel mesa-libgbm-devel libusb1-devel libdecor-devel \
 pipewire-jack-audio-connection-kit-devel libthai-devel liburing-devel zlib-ng-compat-static 
 ```
 
-You may be missing more packages depending on your distribution and what default packages it comes with. However, missing packages should be flagged by vcpkg or caused a build command to fail.
+For Arch-based distributions install:
+```sudo pacman -S --needed sdl3 libgl libx11 libxext libxrandr libxcursor libxfixes libxi libxss wayland libxkbcommon libdrm mesa alsa-lib libpulse jack git cmake ninja pkg-config python python-jinja curl zip unzip tar libxrandr libxcursor libxfixes libxi libxss wayland-protocols libdecor libusb sndio libltdl autoconf autoconf-archive nasm automake libtool libxft
+```
+
+You may be missing more packages depending on your distribution and what default packages it comes with. Missing packages should be flagged by vcpkg or cause a build command to fail.
 
 ### With CMake CLI
 In the terminal at the root folder of this project run:
 ```
-cmake -Bbuild -S. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="$env:VCPKG_ROOT\scripts\buildsystems\vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=x64-linux -DPRESET_NAME={linux-debug | linux-release}
+cmake -Bbuild -S. \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_TOOLCHAIN_FILE="$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake" \
+  -DVCPKG_TARGET_TRIPLET=x64-linux \
+  -DPRESET_NAME=linux-release
 cmake --build build
 ```
-The resulting binary will be located at `out\install\{linux-debug | linux-release}\bin\ArrowVortex`
+The resulting binary will be located at `build/src/System/ArrowVortex`.
 
 To install ArrowVortex to a folder run:
 ```
@@ -74,8 +82,8 @@ cmake --install build --prefix "{your_folder_here}"
 ```
 
 ### With Visual Studio
-1. Use the connection manager to connect to your Linux installation (preferably WSL) over SSH: https://learn.microsoft.com/en-us/cpp/linux/connect-to-your-remote-linux-computer?view=msvc-170#connect-to-wsl
-2. Install vcpkg on the remote system to /opt/vcpkg, or modify CMakePresets.json/create a user preset.
+1. Use the connection manager to connect to your Linux installation (preferably WSL): https://learn.microsoft.com/en-us/cpp/linux/connect-to-your-remote-linux-computer?view=msvc-170#connect-to-wsl
+2. Install vcpkg on the remote system to `/opt/vcpkg`, or modify `CMakePresets.json` / create a user preset.
 3. Build on Windows to the Linux installation. WSL can run the GUI application.
 
 ## Troubleshooting
