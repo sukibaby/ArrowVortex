@@ -114,7 +114,8 @@ jobs:
         run: |
           export MONO_GAC_PREFIX="/opt/homebrew"
           brew install pkg-config sdl3 nasm mono
-          mono "$(vcpkg fetch nuget)"
+          nuget_path="$(vcpkg fetch nuget | tail -n 1)"
+          mono "$nuget_path"
       - name: Configure CMake
         run: >
           cmake -Bbuild -DCMAKE_BUILD_TYPE=Release
